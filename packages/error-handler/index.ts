@@ -15,6 +15,7 @@ export class AppError extends Error {
             // Fallback to capturing stack manually
             this.stack = new Error(message).stack;
         }
+        // Error.captureStackTrace(this)
     }
 }
 
@@ -36,3 +37,24 @@ export class validationError extends AppError {
 
 
 //jwt authentication error
+export class AuthError extends AppError {
+    constructor(message = "unAuthorized") {
+        super(message, 401)
+    }
+}
+
+//forbidden Error sending request ot the admin route but you are not admin so this error is showing
+export class DatabaseError extends AppError {
+    constructor(message = "Database Error", details?: any) {
+        super(message, 500, true, details)
+
+    }
+}
+
+
+//rateLimit Error 
+export class RateLimitError extends AppError {
+    constructor(message = "Too Many Request Try Again Later") {
+        super(message, 429)
+    }
+}
